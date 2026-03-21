@@ -146,6 +146,39 @@
             border-top: 1px solid var(--border-color);
             font-size: 0.95rem;
         }
+    
+        /* Dropdown Styles added by Homepage Manager */
+        .dropdown { position: relative; display: inline-block; margin-left: 2rem; }
+        .dropdown > a { margin-left: 0 !important; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 140px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            overflow: hidden;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0 !important;
+            font-size: 0.9rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: var(--secondary-bg); color: var(--accent-color); }
+
     </style>
 </head>
 <body>
@@ -156,16 +189,26 @@
         <nav>
             <a href="index.html">홈</a>
             <a href="company.html">회사 소개</a>
-            <a href="solution.html">솔루션</a>
+            <div class="dropdown">
+                <a href="solution.html">솔루션</a>
+                <div class="dropdown-content">
+                    <a href="solution.html#curriculum">교육 커리큘럼</a>
+                    <a href="solution.html#kits">교육 키트</a>
+                </div>
+            </div>
             <a href="resources.html">자료실</a>
             <a href="contact.html">문의</a>
         </nav>
     </header>
 
     <main>
+        <div style="text-align: center; margin-top: 4rem; margin-bottom: -2rem;">
+            <a href="#curriculum" style="display:inline-block; padding: 12px 36px; margin: 0 10px; background-color: var(--accent-color); color: white; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s;">교육 커리큘럼</a>
+            <a href="#kits" style="display:inline-block; padding: 12px 36px; margin: 0 10px; background-color: var(--primary-color); color: white; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s;">교육 키트</a>
+        </div>
         <section id="curriculum" class="section">
             <div class="section-title">
-                <h2>Technical Curriculum</h2>
+                <h2>교육 커리큘럼</h2>
                 <p>수천 명의 수강생과 삼성전자 등 주요 기업이 선택한 검증된 교육 프로그램입니다.</p>
             </div>
             <div class="grid">
@@ -207,7 +250,7 @@
 
         <section id="kits" class="section kit-bg">
             <div class="section-title">
-                <h2>Proprietary Edu-Kits</h2>
+                <h2>교육 키트</h2>
                 <p>터치랩스가 직접 설계하고 생산하는 고품질 교육용 하드웨어 키트입니다.</p>
             </div>
             
