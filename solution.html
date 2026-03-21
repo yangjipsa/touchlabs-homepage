@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TouchLabs | 테크와 교육을 잇는 혁신</title>
+    <title>솔루션 | TouchLabs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -53,28 +53,6 @@
         }
 
         nav a:hover { color: var(--accent-color); }
-
-        .hero {
-            padding: 8rem 5%;
-            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            letter-spacing: -1px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--light-text);
-            max-width: 800px;
-            margin: 0 auto 3rem;
-        }
 
         .section { padding: 8rem 5%; }
         .section-title {
@@ -160,74 +138,13 @@
             color: #94a3b8;
             box-shadow: 0 20px 40px rgba(0,0,0,0.05);
         }
-
-        /* Profile Section */
-        .profile {
-            background: #f1f5f9;
-            padding: 6rem 5%;
-            text-align: center;
-        }
-        .profile-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .profile h2 { font-size: 2.25rem; margin-bottom: 2rem; }
-        .profile-info {
-            background: white;
-            padding: 3rem;
-            border-radius: 24px;
-            text-align: left;
-            border: 1px solid var(--border-color);
-        }
-        .profile-info h4 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent-color); border-bottom: 2px solid #eff6ff; display: inline-block; }
-        .profile-info ul { list-style: none; margin-bottom: 2rem; }
-        .profile-info li { margin-bottom: 0.5rem; color: var(--text-color); font-size: 1rem; }
-
-        /* Inquiry Section */
-        .inquiry-wrapper { padding: 6rem 5%; }
-        .inquiry {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            border-radius: 40px;
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        .inquiry h2 { font-size: 2.75rem; margin-bottom: 1.5rem; z-index: 1; position: relative; }
-        .inquiry p { margin-bottom: 3.5rem; opacity: 0.85; font-size: 1.2rem; z-index: 1; position: relative; }
-        .btn {
-            display: inline-block;
-            padding: 1.3rem 3.5rem;
-            background: var(--accent-color);
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 16px;
-            transition: all 0.3s;
-            z-index: 1;
-            position: relative;
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-        }
-
+        
         footer {
             padding: 5rem 5%;
             text-align: center;
             color: var(--light-text);
             border-top: 1px solid var(--border-color);
             font-size: 0.95rem;
-        }
-
-        @media (max-width: 968px) {
-            .hero h1 { font-size: 2.8rem; }
-            .kit-item { flex-direction: column !important; gap: 3rem; text-align: center; }
-            .kit-image { width: 100%; height: 300px; }
-            .kit-tags { justify-content: center; }
         }
     </style>
 </head>
@@ -246,19 +163,84 @@
     </header>
 
     <main>
-        <section class="hero">
-            <h1>손끝에서 시작되는<br>기술의 실체, 터치랩스</h1>
-            <p>단순한 코딩 교육을 넘어 하드웨어 설계, 클라우드 연동, AI 모델링까지<br>실제 제품이 만들어지는 전 과정을 경험하는 테크니컬 마스터 클래스입니다.</p>
-            <a href="#inquiry" class="btn">교육 파트너십 문의</a>
+        <section id="curriculum" class="section">
+            <div class="section-title">
+                <h2>Technical Curriculum</h2>
+                <p>수천 명의 수강생과 삼성전자 등 주요 기업이 선택한 검증된 교육 프로그램입니다.</p>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">☁️</div>
+                    <h3>IoT & Cloud Systems</h3>
+                    <p class="desc">하드웨어 제어부터 모바일 앱 연동까지, 엔드 투 엔드 IoT 생태계를 이해합니다.</p>
+                    <ul>
+                        <li>ESP8266/WeMos D1 기반 IoT 서버 구축</li>
+                        <li>Google Firebase 실시간 데이터 동기화</li>
+                        <li>App Inventor 활용 모바일 모니터링 앱 제작</li>
+                        <li>TinkerCad 시뮬레이션 기반 회로 설계</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon">🤖</div>
+                    <h3>AIoT & Data Science</h3>
+                    <p class="desc">데이터 수집, 분석, 그리고 엣지 디바이스에서의 인공지능 구현을 학습합니다.</p>
+                    <ul>
+                        <li>Raspberry Pi Pico 기반 AIoT 시스템</li>
+                        <li>Python Bio-Bigdata 분석 (NumPy/Pandas)</li>
+                        <li>인공신경망(ANN) 이론 및 엣지 AI 구현</li>
+                        <li>ChatGPT API 활용 지능형 서비스 연동</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Advanced Maker Tech</h3>
+                    <p class="desc">아이디어를 실제 제품으로 양산하기 위한 프로토타이핑 핵심 기술을 전수합니다.</p>
+                    <ul>
+                        <li>Fusion 360 기반 정밀 3D 모델링</li>
+                        <li>Eagle CAD를 활용한 전문 PCB 회로 설계</li>
+                        <li>Processing 기반 미디어 아트 & 인터랙티브 코딩</li>
+                        <li>3D 프린팅(Cura) 및 하드웨어 패키징</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
+        <section id="kits" class="section kit-bg">
+            <div class="section-title">
+                <h2>Proprietary Edu-Kits</h2>
+                <p>터치랩스가 직접 설계하고 생산하는 고품질 교육용 하드웨어 키트입니다.</p>
+            </div>
+            
+            <div class="kit-container">
+                <div class="kit-item">
+                    <div class="kit-text">
+                        <h3>스마트 공기청정기 마스터 키트</h3>
+                        <p>미세먼지 농도 정밀 측정, 모터 제어는 물론 클라우드 서버와 실시간으로 연동되는 상용 수준의 제품 제작 과정을 담았습니다. 하드웨어 조립부터 펌웨어 코딩까지 완벽하게 지원합니다.</p>
+                        <div class="kit-tags">
+                            <span class="tag">#WeMos_D1</span>
+                            <span class="tag">#Firebase</span>
+                            <span class="tag">#센서_데이터_파싱</span>
+                            <span class="tag">#제품_디자인</span>
+                        </div>
+                    </div>
+                    <div class="kit-image">공기청정기 키트 이미지 영역</div>
+                </div>
 
-
-
-
-
-
-
+                <div class="kit-item">
+                    <div class="kit-text">
+                        <h3>지능형 로보틱스 키트 (Tank & Otto)</h3>
+                        <p>자율 주행의 기초인 초음파 장애물 회피, IR 제어, 서보 모터 정밀 제어를 학습합니다. YAHBOOM G1 탱크와 OTTO 로봇을 통해 로봇 공학의 메커니즘을 마스터합니다.</p>
+                        <div class="kit-tags">
+                            <span class="tag">#Arduino_Uno</span>
+                            <span class="tag">#Robotics</span>
+                            <span class="tag">#자율주행_알고리즘</span>
+                            <span class="tag">#서보_제어</span>
+                        </div>
+                    </div>
+                    <div class="kit-image">로봇 키트 이미지 영역</div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>

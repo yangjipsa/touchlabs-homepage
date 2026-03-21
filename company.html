@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회사 소개 | TouchLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --bg-color: #ffffff;
+            --secondary-bg: #f8fafc;
+            --text-color: #1e293b;
+            --light-text: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        header {
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo img { height: 60px; margin-top: 5px; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+        
+        /* Profile Section */
+        .profile {
+            background: #f1f5f9;
+            padding: 8rem 5%;
+            text-align: center;
+        }
+        .profile-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .profile h2 { font-size: 2.25rem; margin-bottom: 2rem; }
+        .profile-info {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        .profile-info h4 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent-color); border-bottom: 2px solid #eff6ff; display: inline-block; }
+        .profile-info ul { list-style: none; margin-bottom: 2rem; }
+        .profile-info li { margin-bottom: 0.5rem; color: var(--text-color); font-size: 1rem; }
+
+        footer {
+            padding: 5rem 5%;
+            text-align: center;
+            color: var(--light-text);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="TouchLabs_Logo.png" alt="TouchLabs Logo"></a>
+        </div>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="company.html">회사 소개</a>
+            <a href="solution.html">솔루션</a>
+            <a href="resources.html">자료실</a>
+            <a href="contact.html">문의</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="profile" class="profile">
+            <div class="profile-content">
+                <h2>Expertise & Experience</h2>
+                <div class="profile-info">
+                    <h4>Lead Instructor Profile</h4>
+                    <ul>
+                        <li><strong>양선제 (SJ Yang)</strong> | 주식회사 에이아이큐브 수석연구원</li>
+                        <li>성균관대학교 전자전기컴퓨터공학과 (박사 수료, 제어로봇 전공)</li>
+                        <li>전) ㈜바른코어칩스 책임연구원 / ㈜디에스랩 수석연구원</li>
+                    </ul>
+                    <h4>Teaching References</h4>
+                    <ul>
+                        <li>삼성전자 HW 신입사원 조기전력화 과정 (2017~2019)</li>
+                        <li>성균관대학교 종합설계프로젝트 및 창의코딩캠프 총괄</li>
+                        <li>성남산업진흥원 IoT 역량 강화 전문 강사</li>
+                        <li>수원하이텍고 등 다수 교육기관 전문 기술 자문</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TouchLabs. All Rights Reserved.</p>
+        <p>대표: 양선제 | 사업자등록번호: 459-10-02927</p>
+        <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
+    </footer>
+</body>
+</html>
