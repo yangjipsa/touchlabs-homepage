@@ -219,7 +219,7 @@
             // Dynamically set the subject line
             const inquiryType = form.querySelector('input[name="inquiry_type"]:checked').value;
             const subjectField = form.querySelector('input[name="subject"]');
-            subjectField.value = `[${inquiryType}] [터치랩스] 홈페이지 새로운 문의가 도착했습니다`;
+            subjectField.value = `[터치랩스]홈페이지의 새로운 [${inquiryType}] 문의`;
 
             const formData = new FormData(form);
             const submitButton = form.querySelector('button[type="submit"]');
