@@ -187,5 +187,36 @@
         <p>대표: 양선제 | 사업자등록번호: 459-10-02927</p>
         <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
     </footer>
+
+    <script>
+        const form = document.querySelector('form[name="contact"]');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = '전송 중...';
+            submitButton.disabled = true;
+
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                alert('문의가 성공적으로 전송되었습니다.');
+                form.reset();
+            })
+            .catch((error) => {
+                alert('오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                console.error(error);
+            })
+            .finally(() => {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
