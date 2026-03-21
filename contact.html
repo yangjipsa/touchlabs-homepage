@@ -170,6 +170,7 @@
         <div class="contact-form-container">
             <form name="contact" method="POST" data-netlify="true">
                 <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="subject" />
                 <div class="form-group">
                     <label for="name">성함</label>
                     <input type="text" id="name" name="name" required>
@@ -181,14 +182,10 @@
                 <div class="form-group">
                     <label>문의 종류</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="inquiry_type" value="교육문의" checked> 교육 문의</label>
-                        <label><input type="radio" name="inquiry_type" value="키트문의"> 키트 문의</label>
-                        <label><input type="radio" name="inquiry_type" value="일반문의"> 일반 문의</label>
+                        <label><input type="radio" name="inquiry_type" value="교육" checked> 교육</label>
+                        <label><input type="radio" name="inquiry_type" value="키트"> 키트</label>
+                        <label><input type="radio" name="inquiry_type" value="일반"> 일반</label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="subject">제목</label>
-                    <input type="text" id="subject" name="subject" required>
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
@@ -217,6 +214,11 @@
         const form = document.querySelector('form[name="contact"]');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+
+            // Dynamically set the subject line
+            const inquiryType = form.querySelector('input[name="inquiry_type"]:checked').value;
+            const subjectField = form.querySelector('input[name="subject"]');
+            subjectField.value = `[${inquiryType}] [터치랩스] 홈페이지 새로운 문의가 도착했습니다`;
 
             const formData = new FormData(form);
             const submitButton = form.querySelector('button[type="submit"]');
