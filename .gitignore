@@ -1,0 +1,4 @@
+# Ignore large source files
+교육키트/*.pptx
+교육키트/*.txt
+
