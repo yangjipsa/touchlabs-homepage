@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>솔루션 | TouchLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --bg-color: #ffffff;
+            --secondary-bg: #f8fafc;
+            --text-color: #1e293b;
+            --light-text: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        header {
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo img { height: 60px; margin-top: 5px; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: var(--accent-color); }
+
+        .section { padding: 8rem 5%; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .section-title p { color: var(--light-text); font-size: 1.15rem; }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-color);
+        }
+        .card .icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .card h3 { margin-bottom: 1.25rem; font-size: 1.6rem; color: var(--primary-color); }
+        .card p.desc { color: var(--light-text); margin-bottom: 1.5rem; font-size: 1rem; }
+        .card ul { list-style: none; color: var(--text-color); font-weight: 500; }
+        .card li { margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative; font-size: 0.95rem; }
+        .card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Kit Section */
+        .kit-bg { background-color: var(--secondary-bg); }
+        .kit-container { max-width: 1100px; margin: 0 auto; }
+        .kit-item {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            margin-bottom: 8rem;
+        }
+        .kit-item:last-child { margin-bottom: 0; }
+        .kit-item:nth-child(even) { flex-direction: row-reverse; }
+        .kit-text { flex: 1.2; }
+        .kit-text h3 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--primary-color); }
+        .kit-text p { color: var(--light-text); font-size: 1.1rem; margin-bottom: 2rem; }
+        .kit-tags { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+        .tag {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .kit-image {
+            flex: 1;
+            background: #e2e8f0;
+            height: 400px;
+            border-radius: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #94a3b8;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        
+        footer {
+            padding: 5rem 5%;
+            text-align: center;
+            color: var(--light-text);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+    
+        /* Dropdown Styles added by Homepage Manager */
+        .dropdown { position: relative; display: inline-block; margin-left: 2rem; }
+        .dropdown > a { margin-left: 0 !important; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 140px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            overflow: hidden;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0 !important;
+            font-size: 0.9rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: var(--secondary-bg); color: var(--accent-color); }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="TouchLabs_Logo.png" alt="TouchLabs Logo"></a>
+        </div>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="company.html">회사 소개</a>
+            <div class="dropdown">
+                <a href="solution.html">솔루션</a>
+                <div class="dropdown-content">
+                    <a href="solution.html#curriculum">교육 커리큘럼</a>
+                    <a href="solution.html#kits">교육 키트</a>
+                </div>
+            </div>
+            <a href="resources.html">자료실</a>
+            <a href="contact.html">문의</a>
+        </nav>
+    </header>
+
+    <main>
+        <div style="text-align: center; margin-top: 4rem; margin-bottom: -2rem;">
+            <a href="#curriculum" style="display:inline-block; padding: 12px 36px; margin: 0 10px; background-color: var(--accent-color); color: white; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s;">교육 커리큘럼</a>
+            <a href="#kits" style="display:inline-block; padding: 12px 36px; margin: 0 10px; background-color: var(--primary-color); color: white; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: transform 0.2s;">교육 키트</a>
+        </div>
+        <section id="curriculum" class="section">
+            <div class="section-title">
+                <h2>교육 커리큘럼</h2>
+                <p>수천 명의 수강생과 삼성전자 등 주요 기업이 선택한 검증된 교육 프로그램입니다.</p>
+            </div>
+            <div class="grid">
+                <div class="card">
+                    <div class="icon">☁️</div>
+                    <h3>IoT & Cloud Systems</h3>
+                    <p class="desc">하드웨어 제어부터 모바일 앱 연동까지, 엔드 투 엔드 IoT 생태계를 이해합니다.</p>
+                    <ul>
+                        <li>ESP8266/WeMos D1 기반 IoT 서버 구축</li>
+                        <li>Google Firebase 실시간 데이터 동기화</li>
+                        <li>App Inventor 활용 모바일 모니터링 앱 제작</li>
+                        <li>TinkerCad 시뮬레이션 기반 회로 설계</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon">🤖</div>
+                    <h3>AIoT & Data Science</h3>
+                    <p class="desc">데이터 수집, 분석, 그리고 엣지 디바이스에서의 인공지능 구현을 학습합니다.</p>
+                    <ul>
+                        <li>Raspberry Pi Pico 기반 AIoT 시스템</li>
+                        <li>Python Bio-Bigdata 분석 (NumPy/Pandas)</li>
+                        <li>인공신경망(ANN) 이론 및 엣지 AI 구현</li>
+                        <li>ChatGPT API 활용 지능형 서비스 연동</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Advanced Maker Tech</h3>
+                    <p class="desc">아이디어를 실제 제품으로 양산하기 위한 프로토타이핑 핵심 기술을 전수합니다.</p>
+                    <ul>
+                        <li>Fusion 360 기반 정밀 3D 모델링</li>
+                        <li>Eagle CAD를 활용한 전문 PCB 회로 설계</li>
+                        <li>Processing 기반 미디어 아트 & 인터랙티브 코딩</li>
+                        <li>3D 프린팅(Cura) 및 하드웨어 패키징</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="kits" class="section kit-bg">
+            <div class="section-title">
+                <h2>교육 키트</h2>
+                <p>터치랩스가 직접 설계하고 생산하는 고품질 교육용 하드웨어 키트입니다.</p>
+            </div>
+            
+            <div class="kit-container">
+                <div class="kit-item">
+                    <div class="kit-text">
+                        <h3>스마트 공기청정기 마스터 키트</h3>
+                        <p>미세먼지 농도 정밀 측정, 모터 제어는 물론 클라우드 서버와 실시간으로 연동되는 상용 수준의 제품 제작 과정을 담았습니다. 하드웨어 조립부터 펌웨어 코딩까지 완벽하게 지원합니다.</p>
+                        <div class="kit-tags">
+                            <span class="tag">#WeMos_D1</span>
+                            <span class="tag">#Firebase</span>
+                            <span class="tag">#센서_데이터_파싱</span>
+                            <span class="tag">#제품_디자인</span>
+                        </div>
+                    </div>
+                    <div class="kit-image">공기청정기 키트 이미지 영역</div>
+                </div>
+
+                <div class="kit-item">
+                    <div class="kit-text">
+                        <h3>지능형 로보틱스 키트 (Tank & Otto)</h3>
+                        <p>자율 주행의 기초인 초음파 장애물 회피, IR 제어, 서보 모터 정밀 제어를 학습합니다. YAHBOOM G1 탱크와 OTTO 로봇을 통해 로봇 공학의 메커니즘을 마스터합니다.</p>
+                        <div class="kit-tags">
+                            <span class="tag">#Arduino_Uno</span>
+                            <span class="tag">#Robotics</span>
+                            <span class="tag">#자율주행_알고리즘</span>
+                            <span class="tag">#서보_제어</span>
+                        </div>
+                    </div>
+                    <div class="kit-image">로봇 키트 이미지 영역</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TouchLabs. All Rights Reserved.</p>
+        <p>대표: 양선제 | 사업자등록번호: 459-10-02927</p>
+        <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
+    </footer>
+</body>
+</html>
