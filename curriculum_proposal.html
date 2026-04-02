@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 커리큘럼 [구성안 검토용] | TouchLabs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #3b82f6;
+            --bg-color: #ffffff;
+            --secondary-bg: #f8fafc;
+            --text-color: #1e293b;
+            --light-text: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--secondary-bg);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .review-banner {
+            background: #fef3c7;
+            border-bottom: 2px solid #f59e0b;
+            text-align: center;
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        header {
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo img { height: 60px; margin-top: 5px; }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 2rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: var(--accent-color); }
+
+        .dropdown { position: relative; display: inline-block; margin-left: 2rem; }
+        .dropdown > a { margin-left: 0 !important; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 140px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
+            z-index: 1001;
+            border-radius: 8px;
+            overflow: hidden;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 5px;
+            border: 1px solid var(--border-color);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0 !important;
+            font-size: 0.9rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover { background-color: var(--secondary-bg); color: var(--accent-color); }
+
+        /* ── 페이지 타이틀 ── */
+        .page-title {
+            background-color: var(--bg-color);
+            padding: 4rem 5%;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .page-title h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+        }
+        .page-title p {
+            color: var(--light-text);
+            font-size: 1.05rem;
+        }
+
+        /* ── 필터 영역 ── */
+        .filter-wrap {
+            max-width: 1100px;
+            margin: 2.5rem auto 0;
+            padding: 0 2rem;
+        }
+        .filter-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--light-text);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.4rem 0.95rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            color: var(--light-text);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.83rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .filter-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        .filter-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+        }
+        .filter-count {
+            font-size: 0.78rem;
+            color: var(--light-text);
+            margin-top: 0.9rem;
+        }
+        .filter-count span { font-weight: 600; color: var(--accent-color); }
+
+        /* ── 카드 그리드 ── */
+        .content-wrap {
+            max-width: 1100px;
+            margin: 1.5rem auto 5rem;
+            padding: 0 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-color: var(--accent-color);
+        }
+        .card.hidden {
+            display: none;
+        }
+
+        /* 카드 내 키워드 태그 목록 */
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin-bottom: 0.1rem;
+        }
+        .card-tag {
+            display: inline-block;
+            font-size: 0.73rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            background: #eff6ff;
+            border-radius: 4px;
+            padding: 0.15rem 0.5rem;
+        }
+        .card-tag.tag-active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+            line-height: 1.45;
+        }
+        .card-meta {
+            font-size: 0.82rem;
+            color: var(--light-text);
+            flex: 1;
+        }
+        .card-action {
+            padding-top: 0.75rem;
+        }
+        .btn-download {
+            display: inline-block;
+            padding: 0.45rem 1rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+        }
+        .btn-download:hover { background-color: #2563eb; }
+
+        /* ── 미운영 카드 ── */
+        .card.unavailable {
+            opacity: 0.55;
+            border-style: dashed;
+        }
+        .card-unavailable-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #94a3b8;
+            background: var(--secondary-bg);
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 0.1rem 0.45rem;
+            align-self: flex-start;
+        }
+
+        /* ── 결과 없음 ── */
+        .no-result {
+            display: none;
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--light-text);
+            font-size: 0.95rem;
+            grid-column: 1 / -1;
+        }
+
+        /* ── ARTIK 소형 섹션 (하단) ── */
+        .artik-section {
+            max-width: 1100px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+        .artik-box {
+            padding: 1.5rem 1.75rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            border-left: 4px solid #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .artik-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #64748b;
+            white-space: nowrap;
+        }
+        .artik-badge {
+            font-size: 0.72rem;
+            color: #94a3b8;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.1rem 0.45rem;
+        }
+        .artik-items {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .artik-item {
+            padding: 0.45rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.83rem;
+            color: var(--light-text);
+            background: var(--secondary-bg);
+        }
+
+        footer {
+            padding: 5rem 5%;
+            text-align: center;
+            color: var(--light-text);
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="review-banner">
+        ⚠️ 이 파일은 배포 전 검토용 구성안입니다 — 승인 후 실제 페이지에 반영 예정
+    </div>
+
+    <header>
+        <div class="logo">
+            <a href="index.html"><img src="TouchLabs_Logo.png" alt="TouchLabs Logo"></a>
+        </div>
+        <nav>
+            <a href="index.html">홈</a>
+            <a href="company.html">회사 소개</a>
+            <div class="dropdown">
+                <a href="#">솔루션</a>
+                <div class="dropdown-content">
+                    <a href="#">교육 커리큘럼</a>
+                    <a href="#">교육 키트</a>
+                </div>
+            </div>
+            <a href="resources.html">자료실</a>
+            <a href="contact.html">문의</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-title">
+            <h1>교육 커리큘럼</h1>
+            <p>프로그래밍부터 IoT·AIoT·로봇까지, 단계별 실습 중심 교육 과정</p>
+        </div>
+
+        <!-- 키워드 필터 -->
+        <div class="filter-wrap">
+            <div class="filter-label">키워드로 필터</div>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">전체</button>
+                <button class="filter-btn" data-filter="C언어">C언어</button>
+                <button class="filter-btn" data-filter="파이썬">파이썬</button>
+                <button class="filter-btn" data-filter="아두이노">아두이노</button>
+                <button class="filter-btn" data-filter="라즈베리파이피코">라즈베리파이피코</button>
+                <button class="filter-btn" data-filter="ESP시리즈">ESP시리즈</button>
+                <button class="filter-btn" data-filter="웹크롤링">웹크롤링</button>
+                <button class="filter-btn" data-filter="임베디드">임베디드</button>
+                <button class="filter-btn" data-filter="AI">AI</button>
+                <button class="filter-btn" data-filter="프로세싱">프로세싱</button>
+                <button class="filter-btn" data-filter="앱인벤터">앱인벤터</button>
+                <button class="filter-btn" data-filter="TinkerCad">TinkerCad</button>
+                <button class="filter-btn" data-filter="IoT">IoT</button>
+                <button class="filter-btn" data-filter="PCB">PCB</button>
+                <button class="filter-btn" data-filter="Circuit">Circuit</button>
+                <button class="filter-btn" data-filter="3D모델링&프린팅">3D모델링&amp;프린팅</button>
+                <button class="filter-btn" data-filter="키트">키트</button>
+                <button class="filter-btn" data-filter="로봇">로봇</button>
+                <button class="filter-btn" data-filter="조명">조명</button>
+                <button class="filter-btn" data-filter="ARTIK">ARTIK</button>
+                <button class="filter-btn" data-filter="초급">🟢 초급</button>
+                <button class="filter-btn" data-filter="중급">🟡 중급</button>
+                <button class="filter-btn" data-filter="고급">🔴 고급</button>
+            </div>
+            <div class="filter-count" id="filter-count"><span id="count-num">20</span>개 강의</div>
+        </div>
+
+        <!-- 카드 목록 (플랫 나열) -->
+        <div class="content-wrap">
+            <div class="card-grid" id="card-grid">
+
+                <!-- 아두이노를 위한 C언어 -->
+                <div class="card" data-keywords="C언어,아두이노,임베디드,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">아두이노를 위한 C언어</div>
+                    <div class="card-meta">임베디드 제어를 위한 C언어 기초 및 아두이노 응용</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 라즈베리파이 피코를 위한 파이썬 -->
+                <div class="card" data-keywords="파이썬,라즈베리파이피코,임베디드,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">파이썬</span>
+                        <span class="card-tag">라즈베리파이피코</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">라즈베리파이 피코를 위한 파이썬</div>
+                    <div class="card-meta">MicroPython 기반 파이썬 프로그래밍 입문</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 웹 크롤링 -->
+                <div class="card" data-keywords="파이썬,웹크롤링,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">파이썬</span>
+                        <span class="card-tag">웹크롤링</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">웹 크롤링 따라하기</div>
+                    <div class="card-meta">requests / BeautifulSoup 기반 데이터 수집 실습</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 아두이노 에센셜 -->
+                <div class="card" data-keywords="아두이노,C언어,임베디드,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">아두이노 에센셜</div>
+                    <div class="card-meta">아두이노 보드 구조 이해와 디지털/아날로그 센서 제어 실습</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- ESP 에센셜(ESP8266) -->
+                <div class="card" data-keywords="ESP시리즈,임베디드,IoT,앱인벤터,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">ESP시리즈</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">앱인벤터</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">ESP 에센셜 (ESP8266)</div>
+                    <div class="card-meta">Wi-Fi 내장 MCU를 활용한 센서 입출력 및 네트워크 제어 실습</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 라즈베리파이피코 에센셜 -->
+                <div class="card" data-keywords="라즈베리파이피코,임베디드,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">라즈베리파이피코</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">라즈베리파이피코 에센셜</div>
+                    <div class="card-meta">RP2040 기반 마이크로컨트롤러 하드웨어 제어</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 아두이노 스타터 -->
+                <div class="card" data-keywords="아두이노,TinkerCad,임베디드,C언어,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">TinkerCad</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">아두이노 스타터</div>
+                    <div class="card-meta">브라우저 기반 회로 시뮬레이터로 배우는 아두이노 IoT</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 프로세싱 + 아두이노 -->
+                <div class="card" data-keywords="아두이노,프로세싱,AI">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">프로세싱</span>
+                        <span class="card-tag">AI</span>
+                    </div>
+                    <div class="card-title">프로세싱과 아두이노의 융합</div>
+                    <div class="card-meta">Processing 비주얼 프로그래밍과 아두이노 시리얼 통신 연동</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- Firebase IoT -->
+                <div class="card" data-keywords="IoT,ESP시리즈,임베디드">
+                    <div class="card-tags">
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">ESP시리즈</span>
+                        <span class="card-tag">임베디드</span>
+                    </div>
+                    <div class="card-title">Firebase 연동 IoT</div>
+                    <div class="card-meta">Firebase Realtime DB · Storage를 활용한 데이터 수집 및 제어</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 앱인벤터 -->
+                <div class="card" data-keywords="IoT,앱인벤터,ESP시리즈">
+                    <div class="card-tags">
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">앱인벤터</span>
+                        <span class="card-tag">ESP시리즈</span>
+                    </div>
+                    <div class="card-title">파이어베이스 · 앱인벤터 응용</div>
+                    <div class="card-meta">앱인벤터와 Firebase를 연결하는 IoT 앱 제작</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 라즈베리파이피코 AIoT -->
+                <div class="card" data-keywords="라즈베리파이피코,AI,임베디드">
+                    <div class="card-tags">
+                        <span class="card-tag">라즈베리파이피코</span>
+                        <span class="card-tag">AI</span>
+                        <span class="card-tag">임베디드</span>
+                    </div>
+                    <div class="card-title">라즈베리파이피코 AIoT</div>
+                    <div class="card-meta">MicroPython + 센서 데이터 기반 AI 연동 실습</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- PCB -->
+                <div class="card" data-keywords="PCB,Circuit,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">PCB</span>
+                        <span class="card-tag">Circuit</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">회로이론 기초 및 PCB 디자인</div>
+                    <div class="card-meta">회로 이론 기초부터 PCB 레이아웃 설계까지</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- TinkerCad 3D -->
+                <div class="card" data-keywords="TinkerCad,3D모델링&프린팅,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">TinkerCad</span>
+                        <span class="card-tag">3D모델링&amp;프린팅</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">TinkerCad로 시작하는 3D 모델링</div>
+                    <div class="card-meta">브라우저 기반 3D 디자인 툴 Tinkercad 입문</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 3D 프린팅 기초 -->
+                <div class="card" data-keywords="3D모델링&프린팅">
+                    <div class="card-tags">
+                        <span class="card-tag">3D모델링&amp;프린팅</span>
+                    </div>
+                    <div class="card-title">3D 프린팅 기초</div>
+                    <div class="card-meta">FDM 방식 3D 프린터 구조 이해와 슬라이싱 실습</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 3D 모델링+프린팅 종합 -->
+                <div class="card" data-keywords="3D모델링&프린팅">
+                    <div class="card-tags">
+                        <span class="card-tag">3D모델링&amp;프린팅</span>
+                    </div>
+                    <div class="card-title">3D 모델링 &amp; 프린팅 종합</div>
+                    <div class="card-meta">모델링부터 출력까지 실습 워크플로 전 과정</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- OTTO ROBOT -->
+                <div class="card" data-keywords="아두이노,C언어,로봇,키트,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">로봇</span>
+                        <span class="card-tag">키트</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">OTTO ROBOT (ver.IR)</div>
+                    <div class="card-meta">서보모터 기반 2족 보행 로봇 조립 및 프로그래밍</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 탱크 로봇 -->
+                <div class="card unavailable" data-keywords="아두이노,로봇,키트,C언어,중급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">로봇</span>
+                        <span class="card-tag">키트</span>
+                        <span class="card-tag">중급</span>
+                    </div>
+                    <div class="card-title">탱크 로봇 (YAHBOOM G1 Tank) <span class="card-unavailable-badge">현재 미운영</span></div>
+                    <div class="card-meta">무한궤도 기반 탱크 로봇 조립 및 원격 제어</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 드로잉 로봇 -->
+                <div class="card" data-keywords="아두이노,C언어,로봇,키트,고급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">C언어</span>
+                        <span class="card-tag">로봇</span>
+                        <span class="card-tag">키트</span>
+                        <span class="card-tag">고급</span>
+                    </div>
+                    <div class="card-title">드로잉 로봇 (Drawing Robot)</div>
+                    <div class="card-meta">XY 플로터 방식 드로잉 로봇 제작 및 G-code 제어</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 공기청정기 -->
+                <div class="card unavailable" data-keywords="ESP시리즈,임베디드,키트,IoT">
+                    <div class="card-tags">
+                        <span class="card-tag">ESP시리즈</span>
+                        <span class="card-tag">임베디드</span>
+                        <span class="card-tag">키트</span>
+                        <span class="card-tag">IoT</span>
+                    </div>
+                    <div class="card-title">책상위 미니 공기 청정기 <span class="card-unavailable-badge">현재 미운영</span></div>
+                    <div class="card-meta">미세먼지 센서 + 팬 모듈을 이용한 공기청정기 키트</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <!-- 나만의 색 만들기 -->
+                <div class="card" data-keywords="아두이노,조명,키트,초급">
+                    <div class="card-tags">
+                        <span class="card-tag">아두이노</span>
+                        <span class="card-tag">조명</span>
+                        <span class="card-tag">키트</span>
+                        <span class="card-tag">초급</span>
+                    </div>
+                    <div class="card-title">나만의 색 만들기</div>
+                    <div class="card-meta">RGB LED를 이용해 원하는 색을 직접 만드는 조명 제작</div>
+                    <div class="card-action"><a href="#" class="btn-download">자료 보기</a></div>
+                </div>
+
+                <div class="no-result" id="no-result">해당 키워드의 강의가 없습니다.</div>
+
+            </div><!-- /.card-grid -->
+        </div><!-- /.content-wrap -->
+
+        <!-- ARTIK 소형 섹션 (하단 고정, 필터 영향 없음) -->
+        <div class="artik-section" id="artik-section">
+            <div class="artik-box">
+                <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <h3>ARTIK 플랫폼</h3>
+                    <span class="artik-badge">레거시 / 아카이브</span>
+                </div>
+                <div class="artik-items">
+                    <div class="artik-item">삼성 ARTIK 플랫폼 기초과정 (2017)</div>
+                    <div class="artik-item">ARTIK IoT 활용 교육자료 (2019)</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 TouchLabs. All Rights Reserved.</p>
+        <p>대표: 양선제 | 사업자등록번호: 459-10-02927</p>
+        <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
+    </footer>
+
+    <script>
+        const cards = document.querySelectorAll('#card-grid .card');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const countNum = document.getElementById('count-num');
+        const noResult = document.getElementById('no-result');
+        const artikSection = document.getElementById('artik-section');
+
+        let activeFilter = 'all';
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeFilter = btn.dataset.filter;
+
+                // 버튼 활성화
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 카드 필터링
+                let visible = 0;
+                cards.forEach(card => {
+                    const keywords = card.dataset.keywords.split(',');
+                    const match = activeFilter === 'all' || keywords.includes(activeFilter);
+                    card.classList.toggle('hidden', !match);
+
+                    // 매칭 태그 하이라이트
+                    card.querySelectorAll('.card-tag').forEach(tag => {
+                        tag.classList.toggle('tag-active',
+                            activeFilter !== 'all' && tag.textContent.trim() === activeFilter);
+                    });
+
+                    if (match) visible++;
+                });
+
+                // ARTIK 섹션: ARTIK 필터 또는 전체일 때만 표시
+                artikSection.style.display =
+                    (activeFilter === 'all' || activeFilter === 'ARTIK') ? '' : 'none';
+
+                // 카운트 업데이트
+                const artikCount = (activeFilter === 'all' || activeFilter === 'ARTIK') ? 2 : 0;
+                countNum.textContent = visible + artikCount;
+
+                // 결과 없음 처리
+                noResult.style.display = visible === 0 ? 'block' : 'none';
+            });
+        });
+    </script>
+
+</body>
+</html>
