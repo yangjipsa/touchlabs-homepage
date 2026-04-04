@@ -449,26 +449,13 @@
             margin: 0 auto;
         }
 
-        .kit-usage-sub-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .kit-usage-block {
-            margin-bottom: 4rem;
-        }
-
-        .use-example-grid {
+        .kit-usage-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
 
-        .use-example-item {
+        .kit-usage-item {
             border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-color);
@@ -476,55 +463,97 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .use-example-item:hover {
+        .kit-usage-item:hover {
             transform: scale(1.03);
             box-shadow: 0 16px 36px rgba(0,0,0,0.12);
         }
 
-        .use-example-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .project-block {
-            margin-bottom: 2rem;
-        }
-
-        .project-pair {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-
-        .project-pair-item {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            background: white;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .project-pair-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 16px 36px rgba(0,0,0,0.12);
-        }
-
-        .project-pair-item img {
+        .kit-usage-item img {
             width: 100%;
             height: 260px;
             object-fit: cover;
             display: block;
         }
 
+        /* Kit Intro Gallery */
+        .kit-intro-gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .kit-intro-gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .kit-intro-gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.12);
+        }
+
+        .kit-intro-gallery-item img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(1.12);
+            cursor: zoom-in;
+            transition: filter 0.2s ease;
+        }
+        .kit-intro-gallery-item img:hover {
+            filter: brightness(1.2);
+        }
+
+        /* Lightbox */
+        #kit-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.78);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        #kit-lightbox.active { display: flex; }
+        #kit-lightbox img {
+            width: 640px;
+            height: 480px;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+        }
+        #kit-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 28px;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            line-height: 1;
+            user-select: none;
+        }
+
+        @media (max-width: 900px) {
+            .kit-intro-gallery { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .kit-intro-gallery { grid-template-columns: repeat(2, 1fr); }
+        }
+
+
         @media (max-width: 768px) {
-            .use-example-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-pair { grid-template-columns: 1fr; }
+            .kit-usage-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 480px) {
-            .use-example-grid { grid-template-columns: 1fr; }
+            .kit-usage-grid { grid-template-columns: 1fr; }
         }
 
         /* CTA Section */
@@ -699,6 +728,25 @@
                 <h2>키트 구성</h2>
                 <p>아두이노 핵심 실습에 필요한 부품 13종을 한 번에 구성했습니다.</p>
             </div>
+            <!-- 키트 라인업 갤러리 -->
+            <div class="kit-intro-gallery" style="max-width:1200px;margin:0 auto 3rem;">
+                <div class="kit-intro-gallery-item">
+                    <img src="assets/images/kits/edge/kit-01.jpg" alt="키트사진 1">
+                </div>
+                <div class="kit-intro-gallery-item">
+                    <img src="assets/images/kits/edge/kit-02.jpg" alt="키트사진 2">
+                </div>
+                <div class="kit-intro-gallery-item">
+                    <img src="assets/images/kits/edge/kit-03.jpg" alt="키트사진 3">
+                </div>
+                <div class="kit-intro-gallery-item">
+                    <img src="assets/images/kits/edge/kit-04.jpg" alt="키트사진 4">
+                </div>
+                <div class="kit-intro-gallery-item">
+                    <img src="assets/images/kits/edge/kit-06.jpg" alt="키트사진 6">
+                </div>
+            </div>
+
             <div class="components-wrapper">
 
                 <!-- Main Board -->
@@ -847,61 +895,51 @@
         <!-- Kit Usage Section -->
         <section class="section kit-usage-bg">
             <div class="section-title">
-                <h2>키트 활용</h2>
-                <p>TouchLabs Edge로 무엇을 만들 수 있을까요?</p>
+                <h2>키트 사용법</h2>
+                <p>TouchLabs Edge 키트를 이렇게 사용해 보세요.</p>
             </div>
             <div class="kit-usage-wrapper">
-
-                <!-- 사용 예시 -->
-                <div class="kit-usage-block">
-                    <p class="kit-usage-sub-title">사용 예시</p>
-                    <div class="use-example-grid">
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-01.png" alt="사용 예시 1">
-                        </div>
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-02.png" alt="사용 예시 2">
-                        </div>
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-03.png" alt="사용 예시 3">
-                        </div>
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-04.png" alt="사용 예시 4">
-                        </div>
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-05.png" alt="사용 예시 5">
-                        </div>
-                        <div class="use-example-item">
-                            <img src="assets/images/kits/edge/use-06.png" alt="사용 예시 6">
-                        </div>
+                <div class="kit-usage-grid">
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/kit-07.jpg" alt="키트사진 7">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/kit-08.jpg" alt="키트사진 8">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/kit-09.jpg" alt="키트사진 9">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/kit-10.jpg" alt="키트사진 10">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/kit-11.jpg" alt="키트사진 11">
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <!-- 활용 작품 -->
-                <div class="kit-usage-block">
-                    <p class="kit-usage-sub-title">활용 작품</p>
-                    <div class="project-block">
-                        <div class="project-pair">
-                            <div class="project-pair-item">
-                                <img src="assets/images/kits/edge/project-01-1.jpg" alt="활용 작품 1 - 사진 1">
-                            </div>
-                            <div class="project-pair-item">
-                                <img src="assets/images/kits/edge/project-01-2.jpg" alt="활용 작품 1 - 사진 2">
-                            </div>
-                        </div>
+        <!-- Kit Works Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>키트를 활용한 작품</h2>
+                <p>TouchLabs Edge 키트로 완성한 학습 작품들입니다.</p>
+            </div>
+            <div class="kit-usage-wrapper">
+                <div class="kit-usage-grid">
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/활용작품1_1.jpg" alt="활용작품 1-1">
                     </div>
-                    <div class="project-block">
-                        <div class="project-pair">
-                            <div class="project-pair-item">
-                                <img src="assets/images/kits/edge/project-02-1.jpg" alt="활용 작품 2 - 사진 1">
-                            </div>
-                            <div class="project-pair-item">
-                                <img src="assets/images/kits/edge/project-02-2.jpg" alt="활용 작품 2 - 사진 2">
-                            </div>
-                        </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/활용작품1_2.jpg" alt="활용작품 1-2">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/활용작품2_1.jpg" alt="활용작품 2-1">
+                    </div>
+                    <div class="kit-usage-item">
+                        <img src="assets/images/kits/edge/활용작품2_2.jpg" alt="활용작품 2-2">
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -952,6 +990,31 @@
                 if (navDropdown) navDropdown.classList.remove('open');
             }
         });
+    </script>
+
+    <!-- Kit Lightbox -->
+    <div id="kit-lightbox">
+        <span id="kit-lightbox-close">&#x2715;</span>
+        <img id="kit-lightbox-img" src="" alt="">
+    </div>
+    <script>
+        (function() {
+            var lb = document.getElementById('kit-lightbox');
+            var lbImg = document.getElementById('kit-lightbox-img');
+            document.querySelectorAll('.kit-intro-gallery-item img').forEach(function(img) {
+                img.addEventListener('click', function() {
+                    lbImg.src = img.src;
+                    lbImg.alt = img.alt;
+                    lb.classList.add('active');
+                });
+            });
+            document.getElementById('kit-lightbox-close').addEventListener('click', function() {
+                lb.classList.remove('active');
+            });
+            lb.addEventListener('click', function(e) {
+                if (e.target === lb) lb.classList.remove('active');
+            });
+        })();
     </script>
 </body>
 </html>
