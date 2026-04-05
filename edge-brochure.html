@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TouchLabs Edge — Arduino Essential Kit 제품소개서</title>
+  <style>
+    /* ── 기본 리셋 ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      background: #e5e7eb;
+      color: #1e293b;
+      line-height: 1.6;
+    }
+
+    /* ── A4 페이지 래퍼 ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 16px auto;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+    }
+
+    /* ── 페이지 구분 ── */
+    .page-break {
+      page-break-after: always;
+    }
+
+    /* ════════════════════════════════════
+       1페이지 — 표지
+    ════════════════════════════════════ */
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 297mm;
+      padding: 0;
+      background: #ffffff;
+    }
+
+    /* 상단 헤더 바 */
+    .cover-header {
+      width: 100%;
+      background: #ffffff;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .cover-header img.logo {
+      height: 28px;
+    }
+
+    .cover-header .tagline {
+      color: #64748b;
+      font-size: 9pt;
+      letter-spacing: 0.04em;
+    }
+
+    /* 메인 이미지 영역 */
+    .cover-image-wrap {
+      width: 100%;
+      flex: 0 0 700px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 40px 8px;
+    }
+
+    .cover-image-wrap img.main-img {
+      max-width: 88%;
+      max-height: 300px;
+      object-fit: contain;
+    }
+
+    /* 제품명 블록 */
+    .cover-title-block {
+      width: 100%;
+      background: #3b82f6;
+      padding: 22px 40px 20px;
+      text-align: center;
+    }
+
+    .cover-title-block .series {
+      font-size: 10pt;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .cover-title-block h1 {
+      font-size: 22pt;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .cover-title-block h1 span {
+      color: #bfdbfe;
+    }
+
+    .cover-title-block .sub {
+      font-size: 10pt;
+      color: rgba(255,255,255,0.8);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    /* 키워드 필 영역 */
+    .cover-pills {
+      width: 100%;
+      background: #ffffff;
+      padding: 20px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .pill {
+      background: #ffffff;
+      border: 1.5px solid #3b82f6;
+      color: #1d4ed8;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
+    }
+
+    /* 표지 하단 */
+    .cover-footer {
+      width: 100%;
+      background: #1e293b;
+      padding: 12px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cover-footer .dot {
+      width: 5px;
+      height: 5px;
+      background: #3b82f6;
+      border-radius: 50%;
+    }
+
+    .cover-footer .url {
+      color: #94a3b8;
+      font-size: 9pt;
+      letter-spacing: 0.06em;
+    }
+
+    /* ════════════════════════════════════
+       공통 — 페이지 내부 레이아웃
+    ════════════════════════════════════ */
+    .page-inner {
+      padding: 32px 36px 28px;
+      min-height: 297mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 내부 헤더 */
+    .inner-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2.5px solid #3b82f6;
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+    }
+
+    .inner-header img.logo {
+      height: 20px;
+    }
+
+    .inner-header .page-label {
+      font-size: 8pt;
+      color: #64748b;
+      letter-spacing: 0.06em;
+    }
+
+    /* 섹션 제목 */
+    .section-eyebrow {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #3b82f6;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #1e293b;
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .section-desc {
+      font-size: 9.5pt;
+      color: #475569;
+      margin-bottom: 22px;
+      line-height: 1.7;
+    }
+
+    /* ════════════════════════════════════
+       2페이지 — 특장점
+    ════════════════════════════════════ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .feature-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 13px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .feature-card .num {
+      font-size: 7.5pt;
+      font-weight: 800;
+      color: #3b82f6;
+      margin-bottom: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    .feature-card h3 {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .feature-card p {
+      font-size: 7.5pt;
+      color: #475569;
+      line-height: 1.55;
+    }
+
+    /* ════════════════════════════════════
+       2페이지 추가 섹션 — 추천 대상 / 활용 예시
+    ════════════════════════════════════ */
+    .recommend-section {
+      margin-bottom: 18px;
+    }
+
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    .recommend-card {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px 10px 10px;
+      text-align: center;
+    }
+
+    .recommend-card .r-icon {
+      font-size: 20px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .recommend-card .r-target {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 3px;
+    }
+
+    .recommend-card .r-desc {
+      font-size: 7pt;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .use-case-section {
+      margin-bottom: 18px;
+    }
+
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      max-width: 75%;
+      margin: 0 auto;
+    }
+
+    .use-case-grid img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      display: block;
+    }
+
+    /* 2페이지 하단 구분선 */
+    .page2-footer {
+      margin-top: 20px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .page2-footer .note {
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+
+    .page2-footer .page-num {
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+
+    /* ════════════════════════════════════
+       3페이지 — 키트 구성
+    ════════════════════════════════════ */
+    .kit-image-wrap {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    .kit-image-wrap img {
+      max-height: 360px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .kit-section-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #e2e8f0;
+    }
+
+    .kit-section-title span {
+      color: #3b82f6;
+    }
+
+    .components-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    /* 마지막 줄 3개 항목 중앙 정렬 */
+    .components-grid .component-item:nth-child(11),
+    .components-grid .component-item:nth-child(12),
+    .components-grid .component-item:nth-child(13) {
+      /* 자연스럽게 왼쪽 정렬 유지 */
+    }
+
+    .component-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+      padding: 6px 4px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+    }
+
+    .component-item .c-img {
+      width: 62px;
+      height: 62px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    .component-item .c-name {
+      font-size: 7pt;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.3;
+    }
+
+    .component-item .c-desc {
+      font-size: 6.5pt;
+      color: #64748b;
+      line-height: 1.3;
+    }
+
+    /* 케이블 별도 섹션 */
+    .cable-section {
+      margin-bottom: 20px;
+    }
+
+    .cable-items {
+      display: flex;
+      gap: 12px;
+    }
+
+    .cable-item {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cable-item .c-num {
+      width: 20px;
+      height: 20px;
+      background: #1e40af;
+      color: #fff;
+      font-size: 7.5pt;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cable-item .c-name {
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    /* 문의 안내 */
+    .contact-box {
+      background: #1e40af;
+      border-radius: 10px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .contact-box .label {
+      font-size: 8.5pt;
+      color: #93c5fd;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: 0.06em;
+    }
+
+    .contact-box .value {
+      font-size: 10pt;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .contact-box .divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    .contact-box img.logo-white {
+      height: 22px;
+    }
+
+    /* ════════════════════════════════════
+       인쇄 스타일
+    ════════════════════════════════════ */
+    @media print {
+      body {
+        background: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      /* 인쇄 시 배경색 강제 출력 */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════
+       1페이지 — 표지
+  ═══════════════════════════════════ -->
+  <div class="page page-break">
+    <div class="cover">
+
+      <!-- 상단 헤더 -->
+      <div class="cover-header">
+        <img class="logo" src="TouchLabs_Logo.png" alt="TouchLabs">
+      </div>
+
+      <!-- 메인 이미지 -->
+      <div class="cover-image-wrap">
+        <img class="main-img" src="assets/images/kits/edge/case-sticker.jfif" alt="TouchLabs Edge Arduino Essential Kit">
+      </div>
+
+      <!-- 제품명 -->
+      <div class="cover-title-block">
+        <div class="series">TouchLabs Edge Series</div>
+        <h1>Arduino <span>Essential</span> Kit</h1>
+        <div class="sub">아두이노 학습을 위한 필수 11종 모듈 구성 교육 키트</div>
+      </div>
+
+      <!-- 핵심 키워드 -->
+      <div class="cover-pills">
+        <span class="pill">원리가 보이는 비교 실습 구성</span>
+        <span class="pill">브레드보드 없이 바로 실습</span>
+        <span class="pill">필수 11종 모듈</span>
+        <span class="pill">교육 및 실습 최적화 구성</span>
+        <span class="pill">디지털·아날로그 모두 커버</span>
+        <span class="pill">초보자도 쉽게</span>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       2페이지 — 제품 소개 + 특장점
+  ═══════════════════════════════════ -->
+  <div class="page page-break">
+    <div class="page-inner">
+
+      <!-- 내부 헤더 -->
+      <div class="inner-header">
+        <img class="logo" src="TouchLabs_Logo.png" alt="TouchLabs">
+        <span class="page-label">TouchLabs Edge — Arduino Essential Kit</span>
+      </div>
+
+      <!-- 섹션 소개 -->
+      <div class="section-eyebrow">Product Introduction</div>
+      <div class="section-title">아두이노 학습에 꼭 필요한 것만 엄선했습니다.<br>하지만 어렵지 않습니다.</div>
+      <p class="section-desc">
+        TouchLabs Edge는 아두이노를 처음 접하는 학습자부터 심화 실습을 원하는 교육자까지,<br>
+        모든 단계에 적합하도록 구성된 교육용 모듈 키트입니다. 복잡한 배선 없이 바로 연결해<br>
+        원하는 회로를 구성하고, 디지털과 아날로그 신호를 비교하며 전자 회로의 원리를 체험합니다.
+      </p>
+
+      <!-- 특장점 -->
+      <div class="section-eyebrow">Key Features</div>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="num">01</div>
+          <h3>원리가 보이는 비교 실습 구성</h3>
+          <p>Active High/Low LED 보드, 풀업/풀다운 스위치 보드를 각각 쌍으로 제공해 회로 동작 원리의 차이를 직접 비교하며 이해할 수 있습니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="num">02</div>
+          <h3>브레드보드 없이 바로 실습</h3>
+          <p>전용 [EDGE] 인터페이스 보드와 모듈을 케이블로 연결하기만 하면 실습 준비 완료. 복잡한 배선 실수 없이 핵심 코딩에만 집중할 수 있습니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="num">03</div>
+          <h3>필수 11종 모듈 완비</h3>
+          <p>LED, 스위치, 밝기 센서, 적외선 센서, 가변저항, RGB LED, 온습도 센서, 모터드라이버(2종)까지 아두이노 기초 커리큘럼에 필요한 모듈을 모두 포함합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="num">04</div>
+          <h3>교육 및 실습 최적화 구성</h3>
+          <p>학교, 방과후 교실, 코딩 학원 등 교육 현장에 맞게 설계된 구성으로, 수업 준비 시간을 최소화하고 실습 효율을 극대화합니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="num">05</div>
+          <h3>디지털·아날로그 모두 커버</h3>
+          <p>디지털 입출력(LED, 스위치)부터 아날로그 입출력(밝기 센서, 가변저항, 온습도 센서)까지 다양한 신호 유형을 한 키트에서 실습할 수 있습니다.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="num">06</div>
+          <h3>초보자도 쉽게</h3>
+          <p>전자부품을 처음 다루는 학습자도 안전하게 사용할 수 있도록 모듈화 설계. 과전류·역전압 보호 회로가 내장되어 있어 실수로 인한 부품 손상을 방지합니다.</p>
+        </div>
+
+      </div>
+
+      <!-- 이런 분들께 추천합니다 -->
+      <div class="recommend-section">
+        <div class="section-eyebrow" style="margin-bottom: 8px;">Recommended For</div>
+        <div class="recommend-grid">
+          <div class="recommend-card">
+            <div class="r-icon">🎓</div>
+            <div class="r-target">아두이노 입문자</div>
+            <div class="r-desc">처음 시작하는 분도 바로 실습 가능</div>
+          </div>
+          <div class="recommend-card">
+            <div class="r-icon">🏫</div>
+            <div class="r-target">학교·학원 강사</div>
+            <div class="r-desc">수업 준비 시간 최소화, 즉시 활용</div>
+          </div>
+          <div class="recommend-card">
+            <div class="r-icon">👨‍💻</div>
+            <div class="r-target">코딩 학습자</div>
+            <div class="r-desc">하드웨어와 소프트웨어를 함께 익히고 싶은 분</div>
+          </div>
+          <div class="recommend-card">
+            <div class="r-icon">🔬</div>
+            <div class="r-target">메이커·동아리</div>
+            <div class="r-desc">다양한 프로젝트 아이디어를 빠르게 실현</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 활용 예시 -->
+      <div class="use-case-section">
+        <div class="section-eyebrow" style="margin-bottom: 8px;">Use Cases</div>
+        <div class="use-case-grid">
+          <img src="assets/images/kits/edge/use-04.png" alt="활용 예시 4">
+          <img src="assets/images/kits/edge/use-06.png" alt="활용 예시 6">
+          <img src="assets/images/kits/edge/project-01-2.jpg" alt="활용 작품 1">
+          <img src="assets/images/kits/edge/project-02-2.jpg" alt="활용 작품 2">
+        </div>
+      </div>
+
+      <!-- 페이지 하단 -->
+      <div class="page2-footer">
+        <span class="note">본 제품의 사양 및 구성은 사전 고지 없이 변경될 수 있습니다.</span>
+        <span class="page-num">2 / 3</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════
+       3페이지 — 키트 구성
+  ═══════════════════════════════════ -->
+  <div class="page">
+    <div class="page-inner">
+
+      <!-- 내부 헤더 -->
+      <div class="inner-header">
+        <img class="logo" src="TouchLabs_Logo.png" alt="TouchLabs">
+        <span class="page-label">TouchLabs Edge — Arduino Essential Kit</span>
+      </div>
+
+      <!-- 제목 -->
+      <div class="section-eyebrow">Kit Contents</div>
+      <div class="section-title" style="margin-bottom: 16px;">키트 구성품</div>
+
+      <!-- 아두이노 세트 이미지 -->
+      <div class="kit-image-wrap">
+        <img src="교육키트/1.TouchLabs Edge - Arduino Essential Kit/아두이노 세트.png" alt="아두이노 세트 전체 구성">
+      </div>
+
+      <!-- 모듈 목록 -->
+      <div class="kit-section-title">모듈 구성 <span>— 13종</span></div>
+      <div class="components-grid">
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/01-arduino-uno.jpg" alt="아두이노 우노">
+          <div class="c-name">아두이노 우노</div>
+          <div class="c-desc">Arduino Uno R3 호환 보드</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/02-edge-interface-board.jpg" alt="[EDGE] 인터페이스 보드">
+          <div class="c-name">[EDGE] 인터페이스 보드</div>
+          <div class="c-desc">아두이노 우노 전용 쉴드형 연결 보드</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/03-edge-led-active-high.jpg" alt="[EDGE] LED 보드 (Active High)">
+          <div class="c-name">[EDGE] LED 보드 (Active High)</div>
+          <div class="c-desc">HIGH 신호 시 점등 / 기본 LED 실습</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/04-edge-led-active-low.jpg" alt="[EDGE] LED 보드 (Active Low)">
+          <div class="c-name">[EDGE] LED 보드 (Active Low)</div>
+          <div class="c-desc">LOW 신호 시 점등 / 비교 실습용</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/05-edge-switch-pullup.jpg" alt="[EDGE] 풀업 스위치 보드">
+          <div class="c-name">[EDGE] 풀업 스위치 보드</div>
+          <div class="c-desc">풀업 저항 내장 스위치 입력 모듈</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/06-edge-switch-pulldown.jpg" alt="[EDGE] 풀다운 스위치 보드">
+          <div class="c-name">[EDGE] 풀다운 스위치 보드</div>
+          <div class="c-desc">풀다운 저항 내장 / 비교 실습용</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/07-edge-light-sensor.jpg" alt="[EDGE] 밝기 센서">
+          <div class="c-name">[EDGE] 밝기 센서</div>
+          <div class="c-desc">CdS 광센서 기반 아날로그 입력</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/08-edge-ir-sensor.jpg" alt="[EDGE] 적외선 센서">
+          <div class="c-name">[EDGE] 적외선 센서</div>
+          <div class="c-desc">IR 물체 감지 / 디지털 출력</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/09-edge-potentiometer.jpg" alt="[EDGE] 가변저항">
+          <div class="c-name">[EDGE] 가변저항</div>
+          <div class="c-desc">아날로그 입력 / 서보·밝기 제어</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/10-edge-rgb-led.jpg" alt="[EDGE] RGB LED">
+          <div class="c-name">[EDGE] RGB LED</div>
+          <div class="c-desc">풀컬러 RGB 출력 / PWM 제어</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/11-edge-temp-humidity.jpg" alt="[EDGE] 온습도 센서">
+          <div class="c-name">[EDGE] 온습도 센서</div>
+          <div class="c-desc">DHT 계열 온도·습도 측정</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/12-edge-motor-bd6210f.jpg" alt="[EDGE] 모터드라이버 B (BD6210F)">
+          <div class="c-name">[EDGE] 모터드라이버 B (BD6210F)</div>
+          <div class="c-desc">DC 모터 양방향 제어</div>
+        </div>
+
+        <div class="component-item">
+          <img class="c-img" src="assets/images/kits/edge/13-edge-motor-drv8838.jpg" alt="[EDGE] 모터드라이버 D (DRV8838)">
+          <div class="c-name">[EDGE] 모터드라이버 D (DRV8838)</div>
+          <div class="c-desc">소형 DC 모터 드라이버</div>
+        </div>
+
+      </div>
+
+      <!-- 케이블 -->
+      <div class="cable-section">
+        <div class="kit-section-title">연결 케이블 <span>— 2종</span></div>
+        <div class="cable-items">
+          <div class="cable-item">
+            <div class="c-num">A</div>
+            <div class="c-name">USB A-B 케이블 (아두이노 업로드용)</div>
+          </div>
+          <div class="cable-item">
+            <div class="c-num">B</div>
+            <div class="c-name">모듈 연결 케이블 (인터페이스 보드 전용)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 문의 안내 -->
+      <div class="contact-box">
+        <div>
+          <div class="label">이메일 문의</div>
+          <div class="value">touchlabs@touchlabs.kr</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="label">공식 홈페이지</div>
+          <div class="value">www.touchlabs.kr</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

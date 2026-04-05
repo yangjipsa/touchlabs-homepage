@@ -353,7 +353,7 @@
         // ★ 여기에 Google Sheets ID를 입력하세요
         // 시트 URL: https://docs.google.com/spreadsheets/d/[이 부분]/edit
         const SHEET_ID = '1r4nMtsJkhujOLqopEpROH4KokQ9jKcFJdVTNNQ849AI';
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1`;
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
 
         let allRows = [];
         let activeFilter = '전체';
@@ -362,8 +362,10 @@
             try {
                 const res = await fetch(SHEET_URL);
                 const text = await res.text();
-                // JSONP 래퍼 제거
-                const json = JSON.parse(text.replace(/^.*?google\.visualization\.Query\.setResponse\(/, '').replace(/\);?\s*$/, ''));
+                // JSONP 래퍼 제거 (개행 포함 매칭)
+                const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+                if (!match) throw new Error('parse error');
+                const json = JSON.parse(match[1]);
                 const rows = json.table.rows;
 
                 // 헤더 행(1행) 제외, 데이터 파싱
