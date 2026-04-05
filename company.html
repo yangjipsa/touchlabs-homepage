@@ -54,27 +54,96 @@
 
         nav a:hover { color: var(--accent-color); }
         
-        /* Profile Section */
-        .profile {
-            background: #f1f5f9;
-            padding: 8rem 5%;
+        .page-title {
+            background: var(--secondary-bg);
+            padding: 4rem 5%;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
         }
-        .profile-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .profile h2 { font-size: 2.25rem; margin-bottom: 2rem; }
-        .profile-info {
+        .page-title h1 { font-size: 2.2rem; font-weight: 700; color: var(--primary-color); }
+        .page-title .en { font-size: 0.85rem; color: var(--light-text); margin-top: 0.3rem; letter-spacing: 0.05em; }
+
+        .section { padding: 5rem 5%; }
+        .section-bg { background: var(--secondary-bg); }
+        .section-inner { max-width: 1000px; margin: 0 auto; }
+
+        .section-heading { margin-bottom: 2.5rem; }
+        .section-heading h2 { font-size: 1.6rem; font-weight: 700; color: var(--primary-color); }
+        .section-heading .en { font-size: 0.78rem; color: var(--light-text); letter-spacing: 0.06em; margin-top: 0.2rem; }
+
+        /* 대표 소개 */
+        .profile-card {
             background: white;
-            padding: 3rem;
-            border-radius: 24px;
-            text-align: left;
             border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
         }
-        .profile-info h4 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--accent-color); border-bottom: 2px solid #eff6ff; display: inline-block; }
-        .profile-info ul { list-style: none; margin-bottom: 2rem; }
-        .profile-info li { margin-bottom: 0.5rem; color: var(--text-color); font-size: 1rem; }
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--light-text);
+        }
+        .profile-info h3 { font-size: 1.5rem; font-weight: 700; color: var(--primary-color); margin-bottom: 0.25rem; }
+        .profile-info .role { font-size: 0.9rem; color: var(--accent-color); font-weight: 600; margin-bottom: 1.25rem; }
+        .profile-info ul { list-style: none; }
+        .profile-info li { font-size: 0.92rem; color: var(--text-color); padding: 0.3rem 0; border-bottom: 1px solid var(--border-color); }
+        .profile-info li:last-child { border-bottom: none; }
+        .profile-info li::before { content: "·"; color: var(--accent-color); margin-right: 0.5rem; font-weight: 700; }
+        @media(max-width:640px) { .profile-card { flex-direction: column; gap: 1.5rem; } }
+
+        /* 교육 이력 테이블 */
+        .career-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        .career-table thead tr { background: var(--primary-color); color: white; }
+        .career-table th { padding: 0.85rem 1rem; text-align: left; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.03em; }
+        .career-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-color); vertical-align: top; }
+        .career-table tbody tr:last-child td { border-bottom: none; }
+        .career-table tbody tr:hover { background: #f8fafc; }
+        .career-table td.period { color: var(--light-text); white-space: nowrap; font-size: 0.82rem; }
+        .career-table td.name { font-weight: 600; color: var(--primary-color); }
+
+        .target-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 0.1rem 0.45rem;
+        }
+        .badge-univ { background: #eff6ff; color: #1d4ed8; }
+        .badge-corp  { background: #fef3c7; color: #92400e; }
+        .badge-high  { background: #f0fdf4; color: #15803d; }
+        .badge-gen   { background: #f5f3ff; color: #6d28d9; }
+
+        /* 교육 현장 갤러리 placeholder */
+        .gallery-placeholder {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .gallery-placeholder-item {
+            aspect-ratio: 4/3;
+            background: var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light-text);
+            font-size: 0.82rem;
+        }
 
         footer {
             padding: 5rem 5%;
@@ -220,7 +289,7 @@
             <div class="dropdown" id="nav-dropdown">
                 <a href="solution.html">솔루션</a>
                 <div class="dropdown-content">
-                    <a href="solution.html#curriculum">교육 커리큘럼</a>
+                    <a href="curriculum.html">교육 커리큘럼</a>
                     <a href="solution.html#kits">교육 키트</a>
                 </div>
             </div>
@@ -230,23 +299,147 @@
     </header>
 
     <main>
-        <section id="profile" class="profile">
-            <div class="profile-content">
-                <h2>Expertise & Experience</h2>
+
+        <!-- 히어로 -->
+        <div style="background:var(--primary-color);padding:6rem 5%;text-align:center;">
+            <p style="font-size:0.8rem;font-weight:600;letter-spacing:0.15em;color:#94a3b8;margin-bottom:1rem;">ABOUT TOUCHLABS</p>
+            <h1 style="font-size:2.4rem;font-weight:800;color:white;margin-bottom:1rem;line-height:1.3;">Touch a moment,<br>begin creation</h1>
+            <p style="color:#94a3b8;font-size:1rem;max-width:520px;margin:0 auto;">순간의 터치 하나가 창작의 시작이 됩니다.<br>터치랩스는 실습 중심의 교육으로 아이디어를 현실로 만드는 경험을 제공합니다.</p>
+        </div>
+
+        <!-- 주요 서비스 -->
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <h2>주요 서비스</h2>
+                    <p class="en">What We Do</p>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+                    <div style="background:var(--secondary-bg);border:1px solid var(--border-color);border-radius:14px;padding:2rem;">
+                        <div style="font-size:2rem;margin-bottom:1rem;">📚</div>
+                        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary-color);margin-bottom:0.6rem;">교육 서비스</h3>
+                        <p style="font-size:0.9rem;color:var(--light-text);line-height:1.7;">Arduino · ESP · Raspberry Pi Pico 기반 임베디드 프로그래밍부터 IoT · AIoT · 3D 모델링·프린팅까지, 실습 중심의 커리큘럼을 제공합니다. 학교·기업·기관 맞춤 강의 가능합니다.</p>
+                    </div>
+                    <div style="background:var(--secondary-bg);border:1px solid var(--border-color);border-radius:14px;padding:2rem;">
+                        <div style="font-size:2rem;margin-bottom:1rem;">🔌</div>
+                        <h3 style="font-size:1.1rem;font-weight:700;color:var(--primary-color);margin-bottom:0.6rem;">교육 키트</h3>
+                        <p style="font-size:0.9rem;color:var(--light-text);line-height:1.7;">브레드보드 없이 전용 케이블 연결만으로 바로 실습 가능한 TouchLabs Edge - Arduino Essential Kit을 직접 설계·제작합니다. 교육 현장에 최적화된 구성이며, 교육 목적에 따라 다양한 키트 라인업을 준비 중입니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 대표 소개 -->
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <h2>대표 소개</h2>
+                    <p class="en">Representative Introduction</p>
+                </div>
                 <div class="profile-info">
-                    <h4>Lead Instructor Profile</h4>
+                    <h4>강사 프로필</h4>
                     <ul>
                         <li><strong>양선제 (Seon-je Yang)</strong> | 터치랩스(TouchLabs) 대표</li>
-                        <li>성균관대학교 전자전기컴퓨터공학과 (박사 수료, 제어로봇 전공)</li>
-                        <li> 가천대학교 반도체계약학과 겸임교수 </li>
-                    </ul>
-                    <h4>Teaching References</h4>
-                    <ul>
-                        <li>성균관대학교 종합설계프로젝트 및 창의코딩캠프 진행</li>
+                        <li>S대학교 전자전기컴퓨터공학과 (박사 수료, 제어로봇 전공)</li>
+                        <li>G대학교 반도체계약학과 겸임교수</li>
+                        <li>Arduino · ESP · Raspberry Pi Pico · IoT · AIoT · 3D 프린팅 전문 강사</li>
                     </ul>
                 </div>
             </div>
         </section>
+
+        <!-- 주요 강의 경력 -->
+        <section class="section section-bg">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <h2>주요 강의 경력</h2>
+                    <p class="en">Teaching Career</p>
+                </div>
+                <div style="background:white;border:1px solid var(--border-color);border-radius:12px;overflow:hidden;">
+                    <div style="max-height:520px;overflow-y:auto;">
+                    <table class="career-table">
+                        <thead>
+                            <tr>
+                                <th style="width:16%">기간</th>
+                                <th style="width:30%">교육명</th>
+                                <th style="width:18%">기관</th>
+                                <th style="width:12%">대상</th>
+                                <th style="width:24%">주요 내용</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="period">2026.04 ~ 현재</td><td class="name">방과후교실 'IoT 시스템 프로젝트'</td><td>S고등학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>라즈베리파이피코, IoT</td></tr>
+                            <tr><td class="period">2025.09 ~ 현재</td><td class="name">반도체계약학과 겸임교수</td><td>G대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2025.09 ~ 2025.12</td><td class="name">산학겸임교사</td><td>S고등학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>프로젝트 멘토</td></tr>
+                            <tr><td class="period">2025.04 ~ 2025.11</td><td class="name">방과후교실 'IoT 시스템 프로젝트'</td><td>S고등학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>라즈베리파이피코, IoT</td></tr>
+                            <tr><td class="period">2025.03 ~ 2025.08</td><td class="name">영재 반도체 과정 교육</td><td>G대학교</td><td><span class="target-badge badge-high">초·중등생</span></td><td>LEGO SPIKE</td></tr>
+                            <tr><td class="period">2024.12</td><td class="name">라즈베리파이 피코를 활용한 AIoT 교육</td><td>C연구원</td><td><span class="target-badge badge-gen">일반인</span></td><td>라즈베리파이피코, IoT, ChatGPT API</td></tr>
+                            <tr><td class="period">2024.09</td><td class="name">스마트 탱크로봇 제작 및 주행 교육</td><td>C연구원</td><td><span class="target-badge badge-gen">일반인</span></td><td>Arduino</td></tr>
+                            <tr><td class="period">2024.05 ~ 2024.11</td><td class="name">방과후교실 'IoT 시스템 프로젝트'</td><td>S고등학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2024.02</td><td class="name">겨울방학 IoT 창업코딩스쿨</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2023.07 ~ 2023.09</td><td class="name">OTTO ROBOT 제작 교육</td><td>C연구원</td><td><span class="target-badge badge-high">고등학생</span></td><td>파이썬 기초, Arduino</td></tr>
+                            <tr><td class="period">2023.07</td><td class="name">Device · Cloud App 활용마스터 IoT 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2023.01</td><td class="name">겨울방학 IoT 창업코딩스쿨</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2022.11</td><td class="name">창의융합역량강화 IoT 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2022.02</td><td class="name">바이오 빅데이터 처리 초급과정</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Python</td></tr>
+                            <tr><td class="period">2022.01</td><td class="name">Art &amp; IoT 교육</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, Processing</td></tr>
+                            <tr><td class="period">2021.08</td><td class="name">인문사회 IoT 프로젝트</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2021.08</td><td class="name">여름방학 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2021.07 ~ 2021.08</td><td class="name">도전학기 IoT 프로젝트</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2021.05 ~ 2021.11</td><td class="name">방과후교실 'IoT 시스템 프로젝트'</td><td>S고등학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2021.01</td><td class="name">동계 IoT 실습 교육 과정</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT</td></tr>
+                            <tr><td class="period">2021.01</td><td class="name">다양한 Arduino 센서 교육</td><td>S대학교 IDEC</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino</td></tr>
+                            <tr><td class="period">2021.01</td><td class="name">언택트 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2020.11</td><td class="name">드론 제어를 위한 AVR 교육</td><td>K기술대</td><td><span class="target-badge badge-univ">대학생</span></td><td>AVR</td></tr>
+                            <tr><td class="period">2020.10</td><td class="name">H/W · S/W 통합설계 전문가 양성과정</td><td>상공회의소</td><td><span class="target-badge badge-gen">일반인</span></td><td>AVR, 임베디드 프로젝트</td></tr>
+                            <tr><td class="period">2020.08</td><td class="name">여름방학 언택트 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2020.01</td><td class="name">청소년 IoT 창업코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2019.08</td><td class="name">경기자동차과학고 창의코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2019.07</td><td class="name">IoT 디바이스 개발을 위한 Arduino 센서 기초 교육</td><td>S대학교 IDEC</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT</td></tr>
+                            <tr><td class="period">2019.06</td><td class="name">유학대학 창의코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>엔트리</td></tr>
+                            <tr><td class="period">2019.02</td><td class="name">IoT 플랫폼 활용 기초 교육</td><td>S대학교 IDEC</td><td><span class="target-badge badge-univ">대학생</span></td><td>Arduino, IoT</td></tr>
+                            <tr><td class="period">2019.02</td><td class="name">스마트시스템 코딩스쿨</td><td>J청소년문화의집</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino</td></tr>
+                            <tr><td class="period">2019.01</td><td class="name">IoT 창의코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2019.01</td><td class="name">IoT 창의코딩스쿨</td><td>S대학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>Arduino, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2018.07</td><td class="name">청소년 창의코딩캠프</td><td>S대학교</td><td><span class="target-badge badge-high">고등학생</span></td><td>ARTIK, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2018.05 ~ 2018.11</td><td class="name">IoT 역량강화 교육</td><td>성남산업진흥원</td><td><span class="target-badge badge-corp">직장인</span></td><td>ARTIK, IoT, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2018.03 ~ 2018.06</td><td class="name">종합설계프로젝트</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>ARTIK, IoT</td></tr>
+                            <tr><td class="period">2017.09 ~ 2019.05</td><td class="name">신입사원 조기전력화 교육</td><td>S전자</td><td><span class="target-badge badge-corp">신입사원</span></td><td>ARTIK, IoT, 3D프린팅, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2016.03 ~ 2018.06</td><td class="name">종합설계프로젝트</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>ARTIK, 프로젝트 멘토</td></tr>
+                            <tr><td class="period">2014.03 ~ 2015.06</td><td class="name">종합설계프로젝트</td><td>S대학교</td><td><span class="target-badge badge-univ">대학생</span></td><td>AVR, 프로젝트 멘토</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 교육 현장 (이미지 준비 후 교체) -->
+        <section class="section">
+            <div class="section-inner">
+                <div class="section-heading">
+                    <h2>교육 현장</h2>
+                    <p class="en">Education Gallery</p>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;">
+                    <img src="assets/images/education/edu-11.jpg" alt="교육 현장 1"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-10.jpg" alt="교육 현장 2"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-8.jpg"  alt="교육 현장 3"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-7.jpg"  alt="교육 현장 4"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-6.jpg"  alt="교육 현장 5"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-5.jpg"  alt="교육 현장 6"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-4.jpg"  alt="교육 현장 7"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-3.jpg"  alt="교육 현장 8"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-2.jpg"  alt="교육 현장 9"  style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                    <img src="assets/images/education/edu-1.jpg"  alt="교육 현장 10" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;cursor:zoom-in;" onclick="openGallery(this.src)">
+                </div>
+
+                <!-- 갤러리 라이트박스 -->
+                <div id="gallery-lb" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;" onclick="this.style.display='none'">
+                    <img id="gallery-lb-img" src="" style="max-width:90vw;max-height:85vh;border-radius:10px;box-shadow:0 8px 48px rgba(0,0,0,0.5);">
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -255,6 +448,12 @@
         <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
     </footer>
     <script>
+        function openGallery(src) {
+            const lb = document.getElementById('gallery-lb');
+            document.getElementById('gallery-lb-img').src = src;
+            lb.style.display = 'flex';
+        }
+
         const hamburger = document.getElementById('hamburger');
         const mainNav = document.getElementById('main-nav');
         const navDropdown = document.getElementById('nav-dropdown');
