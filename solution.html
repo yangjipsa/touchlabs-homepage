@@ -344,7 +344,7 @@
             <div class="dropdown" id="nav-dropdown">
                 <a href="solution.html">솔루션</a>
                 <div class="dropdown-content">
-                    <a href="solution.html#curriculum">교육 커리큘럼</a>
+                    <a href="curriculum.html">교육 커리큘럼</a>
                     <a href="solution.html#kits">교육 키트</a>
                 </div>
             </div>
@@ -361,42 +361,37 @@
         <section id="curriculum" class="section">
             <div class="section-title">
                 <h2>교육 커리큘럼</h2>
-                <p>수천 명의 수강생과 삼성전자 등 주요 기업이 선택한 검증된 교육 프로그램입니다.</p>
+                <p>수많은 학생들과 함께 해온 실습 중심의 교육 프로그램입니다.</p>
             </div>
-            <div class="grid">
-                <div class="card">
-                    <div class="icon">☁️</div>
-                    <h3>IoT & Cloud Systems</h3>
-                    <p class="desc">하드웨어 제어부터 모바일 앱 연동까지, 엔드 투 엔드 IoT 생태계를 이해합니다.</p>
-                    <ul>
-                        <li>ESP8266/WeMos D1 기반 IoT 서버 구축</li>
-                        <li>Google Firebase 실시간 데이터 동기화</li>
-                        <li>App Inventor 활용 모바일 모니터링 앱 제작</li>
-                        <li>TinkerCad 시뮬레이션 기반 회로 설계</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="icon">🤖</div>
-                    <h3>AIoT & Data Science</h3>
-                    <p class="desc">데이터 수집, 분석, 그리고 엣지 디바이스에서의 인공지능 구현을 학습합니다.</p>
-                    <ul>
-                        <li>Raspberry Pi Pico 기반 AIoT 시스템</li>
-                        <li>Python Bio-Bigdata 분석 (NumPy/Pandas)</li>
-                        <li>인공신경망(ANN) 이론 및 엣지 AI 구현</li>
-                        <li>ChatGPT API 활용 지능형 서비스 연동</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <div class="icon">🛠️</div>
-                    <h3>Advanced Maker Tech</h3>
-                    <p class="desc">아이디어를 실제 제품으로 양산하기 위한 프로토타이핑 핵심 기술을 전수합니다.</p>
-                    <ul>
-                        <li>Fusion 360 기반 정밀 3D 모델링</li>
-                        <li>Eagle CAD를 활용한 전문 PCB 회로 설계</li>
-                        <li>Processing 기반 미디어 아트 & 인터랙티브 코딩</li>
-                        <li>3D 프린팅(Cura) 및 하드웨어 패키징</li>
-                    </ul>
-                </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.25rem; max-width:1100px; margin:0 auto;">
+                <a href="curriculum.html?cat=프로그래밍언어" style="text-decoration:none; background:white; border:1px solid var(--border-color); border-radius:16px; padding:1.75rem 1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:all 0.2s;" onmouseover="this.style.borderColor='#3b82f6';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
+                    <span style="font-size:1.6rem;">💻</span>
+                    <span style="font-weight:700; color:#0f172a; font-size:1rem;">프로그래밍 언어</span>
+                    <span style="font-size:0.82rem; color:#64748b;">C언어 · 파이썬</span>
+                </a>
+                <a href="curriculum.html?cat=하드웨어임베디드" style="text-decoration:none; background:white; border:1px solid var(--border-color); border-radius:16px; padding:1.75rem 1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:all 0.2s;" onmouseover="this.style.borderColor='#3b82f6';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
+                    <span style="font-size:1.6rem;">🔌</span>
+                    <span style="font-weight:700; color:#0f172a; font-size:1rem;">하드웨어 &amp; 임베디드</span>
+                    <span style="font-size:0.82rem; color:#64748b;">아두이노 · 피코 · ESP</span>
+                </a>
+                <a href="curriculum.html?cat=IoT클라우드" style="text-decoration:none; background:white; border:1px solid var(--border-color); border-radius:16px; padding:1.75rem 1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:all 0.2s;" onmouseover="this.style.borderColor='#3b82f6';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
+                    <span style="font-size:1.6rem;">☁️</span>
+                    <span style="font-weight:700; color:#0f172a; font-size:1rem;">IoT &amp; 클라우드</span>
+                    <span style="font-size:0.82rem; color:#64748b;">Firebase · 앱인벤터 · AIoT</span>
+                </a>
+                <a href="curriculum.html?cat=제작프로젝트" style="text-decoration:none; background:white; border:1px solid var(--border-color); border-radius:16px; padding:1.75rem 1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:all 0.2s;" onmouseover="this.style.borderColor='#3b82f6';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
+                    <span style="font-size:1.6rem;">🛠️</span>
+                    <span style="font-weight:700; color:#0f172a; font-size:1rem;">제작 프로젝트</span>
+                    <span style="font-size:0.82rem; color:#64748b;">조명 · 로봇 · 공기청정기</span>
+                </a>
+                <a href="curriculum.html?cat=3D" style="text-decoration:none; background:white; border:1px solid var(--border-color); border-radius:16px; padding:1.75rem 1.5rem; display:flex; flex-direction:column; gap:0.75rem; transition:all 0.2s;" onmouseover="this.style.borderColor='#3b82f6';this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)'" onmouseout="this.style.borderColor='';this.style.transform='';this.style.boxShadow=''">
+                    <span style="font-size:1.6rem;">🖨️</span>
+                    <span style="font-weight:700; color:#0f172a; font-size:1rem;">3D 모델링 &amp; 프린팅</span>
+                    <span style="font-size:0.82rem; color:#64748b;">TinkerCad · Fusion360 · Cura</span>
+                </a>
+            </div>
+            <div style="text-align:center; margin-top:3rem;">
+                <a href="curriculum.html" style="display:inline-block; padding:0.75rem 2rem; background:var(--accent-color); color:white; text-decoration:none; font-weight:700; font-size:0.95rem; border-radius:8px; transition:background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">전체 커리큘럼 보기 →</a>
             </div>
         </section>
 

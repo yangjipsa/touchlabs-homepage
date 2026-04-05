@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>교육 커리큘럼 [구성안 검토용] | TouchLabs</title>
+    <title>교육 커리큘럼 | TouchLabs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -28,15 +28,6 @@
             word-break: keep-all;
         }
 
-        .review-banner {
-            background: #fef3c7;
-            border-bottom: 2px solid #f59e0b;
-            text-align: center;
-            padding: 0.7rem 1rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #92400e;
-        }
 
         header {
             padding: 1rem 5%;
@@ -312,9 +303,6 @@
 </head>
 <body>
 
-    <div class="review-banner">
-        ⚠️ 이 파일은 배포 전 검토용 구성안입니다 — 승인 후 실제 페이지에 반영 예정
-    </div>
 
     <header>
         <div class="logo">
@@ -324,10 +312,10 @@
             <a href="index.html">홈</a>
             <a href="company.html">회사 소개</a>
             <div class="dropdown">
-                <a href="#">솔루션</a>
+                <a href="solution.html">솔루션</a>
                 <div class="dropdown-content">
-                    <a href="#">교육 커리큘럼</a>
-                    <a href="#">교육 키트</a>
+                    <a href="curriculum.html">교육 커리큘럼</a>
+                    <a href="solution.html#kits">교육 키트</a>
                 </div>
             </div>
             <a href="resources.html">자료실</a>
@@ -650,8 +638,12 @@
             });
         });
 
-        // 초기 카운트
-        applyFilter('all');
+        // URL 쿼리로 카테고리 자동 선택
+        const urlCat = new URLSearchParams(window.location.search).get('cat');
+        const initCat = urlCat || 'all';
+        const initBtn = document.querySelector(`.cat-btn[data-cat="${initCat}"]`);
+        if (initBtn) { catBtns.forEach(b => b.classList.remove('active')); initBtn.classList.add('active'); }
+        applyFilter(initCat);
     </script>
 
 </body>

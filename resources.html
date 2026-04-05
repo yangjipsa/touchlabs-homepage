@@ -106,21 +106,60 @@
         .resource-table td.title { font-weight: 600; color: var(--primary-color); }
         .resource-table td.date { color: var(--light-text); }
         
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 1.25rem 1.25rem 0;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--secondary-bg);
+        }
+        .filter-btn {
+            padding: 0.35rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            color: var(--light-text);
+            font-family: 'Pretendard', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-bottom: 1rem;
+        }
+        .filter-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .filter-btn.active { background: var(--accent-color); border-color: var(--accent-color); color: white; }
+
+        .cat-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: #eff6ff;
+            color: var(--accent-color);
+            border-radius: 4px;
+            padding: 0.1rem 0.45rem;
+        }
+
         .download-btn {
             display: inline-block;
-            padding: 0.6rem 1.2rem;
+            padding: 0.45rem 1rem;
             background: var(--accent-color);
             color: white;
             text-decoration: none;
             font-weight: 600;
-            border-radius: 8px;
+            border-radius: 6px;
             transition: background-color 0.2s;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            white-space: nowrap;
         }
+        .download-btn:hover { background-color: #2563eb; }
 
-        .download-btn:hover {
-            background-color: #2563eb;
+        .loading-msg, .empty-msg {
+            text-align: center;
+            padding: 4rem;
+            color: var(--light-text);
+            font-size: 0.95rem;
         }
 
         footer {
@@ -280,27 +319,26 @@
     <main>
         <div class="page-title">
             <h1>자료실</h1>
+            <p style="color:var(--light-text);font-size:1rem;margin-top:0.5rem;">강의자료 및 참고 링크를 제공합니다.</p>
         </div>
-        
+
         <div class="resource-container">
+            <!-- 카테고리 필터 -->
+            <div class="filter-bar" id="filter-bar">
+                <button class="filter-btn active" data-cat="전체">전체</button>
+            </div>
+
             <table class="resource-table">
                 <thead>
                     <tr>
-                        <th style="width: 10%; text-align: center;">번호</th>
-                        <th style="width: 50%;">제목 및 설명</th>
-                        <th style="width: 20%;">작성일</th>
-                        <th style="width: 20%; text-align: center;">다운로드</th>
+                        <th style="width:8%;text-align:center;">번호</th>
+                        <th style="width:52%;">제목 및 설명</th>
+                        <th style="width:15%;">날짜</th>
+                        <th style="width:25%;text-align:center;">링크</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <!-- 게시물 #1 -->
-                    <tr>
-                        <td class="number">1</td>
-                        <td class="title"><strong>터치랩스(TouchLabs)의 자료실입니다</strong><br><span style="font-size: 0.9em; color: #64748b;">게시판 테스트</span></td>
-                        <td class="date">2026-03-21</td>
-                        <td style="text-align: center;"><a href="https://docs.google.com/document/d/1q_Xvha5QQYSlqP02EOCi5_Z-Ki3lx-PXL_v0gpHqkBo/edit?usp=drivesdk" target="_blank" class="download-btn">다운로드</a></td>
-                    </tr>
-                    <!-- 실제 자료는 여기에 추가됩니다 -->
+                <tbody id="resource-body">
+                    <tr><td colspan="4" class="loading-msg">데이터를 불러오는 중...</td></tr>
                 </tbody>
             </table>
         </div>
@@ -312,6 +350,78 @@
         <p>주소: 경기도 화성시 효행로 봉담읍 | 연락처: touchlabs@touchlabs.kr</p>
     </footer>
     <script>
+        // ★ 여기에 Google Sheets ID를 입력하세요
+        // 시트 URL: https://docs.google.com/spreadsheets/d/[이 부분]/edit
+        const SHEET_ID = '1r4nMtsJkhujOLqopEpROH4KokQ9jKcFJdVTNNQ849AI';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&headers=1`;
+
+        let allRows = [];
+        let activeFilter = '전체';
+
+        async function loadSheet() {
+            try {
+                const res = await fetch(SHEET_URL);
+                const text = await res.text();
+                // JSONP 래퍼 제거
+                const json = JSON.parse(text.replace(/^.*?google\.visualization\.Query\.setResponse\(/, '').replace(/\);?\s*$/, ''));
+                const rows = json.table.rows;
+
+                // 헤더 행(1행) 제외, 데이터 파싱
+                allRows = rows.map((row, i) => ({
+                    num:   row.c[0]?.v ?? i + 1,
+                    cat:   row.c[1]?.v ?? '',
+                    title: row.c[2]?.v ?? '',
+                    date:  row.c[3]?.v ?? '',
+                    link:  row.c[4]?.v ?? ''
+                })).filter(r => r.title);
+
+                buildFilterBar();
+                renderRows('전체');
+            } catch(e) {
+                document.getElementById('resource-body').innerHTML =
+                    '<tr><td colspan="4" class="empty-msg">자료를 불러올 수 없습니다. 시트 공개 설정을 확인해 주세요.</td></tr>';
+            }
+        }
+
+        function buildFilterBar() {
+            const cats = ['전체', ...new Set(allRows.map(r => r.cat).filter(Boolean))];
+            const bar = document.getElementById('filter-bar');
+            bar.innerHTML = cats.map(c =>
+                `<button class="filter-btn${c === '전체' ? ' active' : ''}" data-cat="${c}">${c}</button>`
+            ).join('');
+            bar.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    bar.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderRows(btn.dataset.cat);
+                });
+            });
+        }
+
+        function renderRows(cat) {
+            const filtered = cat === '전체' ? allRows : allRows.filter(r => r.cat === cat);
+            const tbody = document.getElementById('resource-body');
+            if (!filtered.length) {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-msg">자료가 없습니다.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = filtered.map((r, i) => `
+                <tr>
+                    <td class="number">${i + 1}</td>
+                    <td class="title">
+                        <strong>${r.title}</strong>
+                        ${r.cat ? `<br><span class="cat-badge">${r.cat}</span>` : ''}
+                    </td>
+                    <td class="date">${r.date}</td>
+                    <td style="text-align:center;">
+                        ${r.link ? `<a href="${r.link}" target="_blank" rel="noopener" class="download-btn">바로가기</a>` : '<span style="color:#cbd5e1;font-size:0.85rem;">-</span>'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        loadSheet();
+
         const hamburger = document.getElementById('hamburger');
         const mainNav = document.getElementById('main-nav');
         const navDropdown = document.getElementById('nav-dropdown');
