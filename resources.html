@@ -369,11 +369,23 @@
                 const rows = json.table.rows;
 
                 // 헤더 행(1행) 제외, 데이터 파싱
+                function parseDate(val) {
+                    if (!val) return '';
+                    if (typeof val === 'string') {
+                        const m = val.match(/^Date\((\d+),(\d+),(\d+)\)$/);
+                        if (m) {
+                            const y = m[1], mo = String(+m[2]+1).padStart(2,'0'), d = String(+m[3]).padStart(2,'0');
+                            return `${y}-${mo}-${d}`;
+                        }
+                        return val;
+                    }
+                    return String(val);
+                }
                 allRows = rows.map((row, i) => ({
                     num:   row.c[0]?.v ?? i + 1,
                     cat:   row.c[1]?.v ?? '',
                     title: row.c[2]?.v ?? '',
-                    date:  row.c[3]?.v ?? '',
+                    date:  parseDate(row.c[3]?.v),
                     link:  row.c[4]?.v ?? ''
                 })).filter(r => r.title);
 
